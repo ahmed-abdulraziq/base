@@ -76,7 +76,7 @@ This base includes the most popular and production-tested packages used in profe
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/laravel-base.git
+git clone https://github.com/ahmed-abdulraziq/base.git
 cd laravel-base
 ```
 
