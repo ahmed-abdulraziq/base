@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        foreach (get_declared_classes() as $class) {
+            if (is_subclass_of($class, \App\Models\BaseModel::class) && property_exists($class, 'uploadable')) {
+                $class::observe(\App\Observers\AttachmentObserver::class);
+            }
+        }
     }
 }

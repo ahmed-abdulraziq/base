@@ -1,0 +1,451 @@
+/* ==================== Localization Styles ==================== */
+
+/* RTL Support */
+.direction-rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+.direction-ltr {
+    direction: ltr;
+    text-align: left;
+}
+
+/* RTL Layout Adjustments */
+.direction-rtl .flex {
+    flex-direction: row-reverse;
+}
+
+.direction-rtl .ml-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+.direction-rtl .mr-auto {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+}
+
+.direction-rtl .ml-2 {
+    margin-left: 0 !important;
+    margin-right: 0.5rem !important;
+}
+
+.direction-rtl .mr-2 {
+    margin-right: 0 !important;
+    margin-left: 0.5rem !important;
+}
+
+.direction-rtl .pl-4 {
+    padding-left: 0 !important;
+    padding-right: 1rem !important;
+}
+
+.direction-rtl .pr-4 {
+    padding-right: 0 !important;
+    padding-left: 1rem !important;
+}
+
+/* RTL Border Radius */
+.direction-rtl .rounded-l-md {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+}
+
+.direction-rtl .rounded-r-md {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+}
+
+/* RTL Dropdown */
+.direction-rtl .origin-top-right {
+    transform-origin: top left !important;
+}
+
+.direction-rtl .right-0 {
+    right: auto !important;
+    left: 0 !important;
+}
+
+/* RTL Icons */
+.direction-rtl .transform {
+    transform: scaleX(-1);
+}
+
+/* Locale Switcher Styles */
+.locale-switcher {
+    position: relative;
+}
+
+.locale-switcher .dropdown-menu {
+    min-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.locale-switcher .locale-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #374151;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.locale-switcher .locale-item:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.locale-switcher .locale-item.current {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.locale-switcher .locale-flag {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.direction-rtl .locale-switcher .locale-flag {
+    margin-right: 0 !important;
+    margin-left: 0.75rem !important;
+}
+
+.locale-switcher .locale-name {
+    flex: 1;
+}
+
+.locale-switcher .locale-native {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.125rem;
+}
+
+/* RTL Form Elements */
+.direction-rtl input[type="text"],
+.direction-rtl input[type="email"],
+.direction-rtl input[type="password"],
+.direction-rtl textarea,
+.direction-rtl select {
+    text-align: right;
+}
+
+.direction-rtl .form-label {
+    text-align: right;
+}
+
+.direction-rtl .form-check {
+    padding-left: 0;
+    padding-right: 1.25rem;
+}
+
+.direction-rtl .form-check-input {
+    margin-left: 0;
+    margin-right: -1.25rem;
+}
+
+/* RTL Navigation */
+.direction-rtl .navbar-nav {
+    flex-direction: row-reverse;
+}
+
+.direction-rtl .nav-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* RTL Cards */
+.direction-rtl .card-header {
+    text-align: right;
+}
+
+.direction-rtl .card-body {
+    text-align: right;
+}
+
+/* RTL Tables */
+.direction-rtl table {
+    direction: rtl;
+}
+
+.direction-rtl th,
+.direction-rtl td {
+    text-align: right;
+}
+
+/* RTL Buttons */
+.direction-rtl .btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.direction-rtl .btn-group > .btn:not(:first-child) {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* RTL Modal */
+.direction-rtl .modal-header {
+    flex-direction: row-reverse;
+}
+
+.direction-rtl .modal-footer {
+    flex-direction: row-reverse;
+}
+
+/* RTL Pagination */
+.direction-rtl .pagination {
+    justify-content: flex-end;
+}
+
+/* RTL Breadcrumb */
+.direction-rtl .breadcrumb {
+    flex-direction: row-reverse;
+}
+
+.direction-rtl .breadcrumb-item + .breadcrumb-item::before {
+    content: "\\";
+    transform: scaleX(-1);
+}
+
+/* RTL Alert */
+.direction-rtl .alert {
+    text-align: right;
+}
+
+/* RTL Progress */
+.direction-rtl .progress {
+    direction: rtl;
+}
+
+/* RTL List Group */
+.direction-rtl .list-group-item {
+    text-align: right;
+}
+
+/* RTL Badge */
+.direction-rtl .badge {
+    margin-left: 0.25rem;
+    margin-right: 0;
+}
+
+/* RTL Tooltip */
+.direction-rtl .tooltip {
+    direction: rtl;
+}
+
+/* RTL Popover */
+.direction-rtl .popover {
+    direction: rtl;
+}
+
+/* RTL Carousel */
+.direction-rtl .carousel-control-prev {
+    left: auto;
+    right: 0;
+}
+
+.direction-rtl .carousel-control-next {
+    right: auto;
+    left: 0;
+}
+
+/* RTL Accordion */
+.direction-rtl .accordion-button {
+    text-align: right;
+}
+
+.direction-rtl .accordion-button::after {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* RTL Tabs */
+.direction-rtl .nav-tabs {
+    flex-direction: row-reverse;
+}
+
+/* RTL Dropdown */
+.direction-rtl .dropdown-menu {
+    right: auto;
+    left: 0;
+}
+
+/* RTL Toast */
+.direction-rtl .toast {
+    direction: rtl;
+}
+
+/* RTL Offcanvas */
+.direction-rtl .offcanvas-start {
+    right: 0;
+    left: auto;
+    transform: translateX(100%);
+}
+
+.direction-rtl .offcanvas-end {
+    left: 0;
+    right: auto;
+    transform: translateX(-100%);
+}
+
+/* RTL Utilities */
+.direction-rtl .text-start {
+    text-align: right !important;
+}
+
+.direction-rtl .text-end {
+    text-align: left !important;
+}
+
+.direction-rtl .float-start {
+    float: right !important;
+}
+
+.direction-rtl .float-end {
+    float: left !important;
+}
+
+.direction-rtl .border-start {
+    border-left: 0 !important;
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.direction-rtl .border-end {
+    border-right: 0 !important;
+    border-left: 1px solid #dee2e6 !important;
+}
+
+/* RTL Spacing */
+.direction-rtl .ps-3 {
+    padding-left: 0 !important;
+    padding-right: 1rem !important;
+}
+
+.direction-rtl .pe-3 {
+    padding-right: 0 !important;
+    padding-left: 1rem !important;
+}
+
+.direction-rtl .ms-3 {
+    margin-left: 0 !important;
+    margin-right: 1rem !important;
+}
+
+.direction-rtl .me-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+}
+
+/* RTL Position */
+.direction-rtl .start-0 {
+    left: auto !important;
+    right: 0 !important;
+}
+
+.direction-rtl .end-0 {
+    right: auto !important;
+    left: 0 !important;
+}
+
+/* RTL Transform */
+.direction-rtl .translate-x-0 {
+    transform: translateX(0) !important;
+}
+
+.direction-rtl .-translate-x-full {
+    transform: translateX(100%) !important;
+}
+
+.direction-rtl .translate-x-full {
+    transform: translateX(-100%) !important;
+}
+
+/* RTL Animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.direction-rtl .animate-slide-in-right {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+.direction-rtl .animate-slide-in-left {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* RTL Print Styles */
+@media print {
+    .direction-rtl {
+        direction: rtl;
+    }
+    
+    .direction-rtl * {
+        text-align: right;
+    }
+}
+
+/* RTL Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .locale-switcher .locale-item {
+        color: #d1d5db;
+    }
+    
+    .locale-switcher .locale-item:hover {
+        background-color: #374151;
+        color: #f9fafb;
+    }
+    
+    .locale-switcher .locale-item.current {
+        background-color: #1e3a8a;
+        color: #93c5fd;
+    }
+}
+
+/* RTL High Contrast Mode */
+@media (prefers-contrast: high) {
+    .direction-rtl {
+        border: 1px solid currentColor;
+    }
+}
+
+/* RTL Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .direction-rtl * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+
+
+
+
+

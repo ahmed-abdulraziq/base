@@ -23,4 +23,24 @@ trait ApiResponseTrait
             'errors'  => $errors,
         ], $code);
     }
+
+    protected function created(string $message = 'Resource created successfully', mixed $data = null): JsonResponse
+    {
+        return $this->success($message, $data, 201);
+    }
+
+    protected function noContent(string $message = 'No content'): JsonResponse
+    {
+        return $this->success($message, [], 204);
+    }
+
+    protected function notFound(string $message = 'Resource not found'): JsonResponse
+    {
+        return $this->error($message, [], 404);
+    }
+
+    protected function serverError(string $message = 'Internal server error'): JsonResponse
+    {
+        return $this->error($message, [], 500);
+    }
 }

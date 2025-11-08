@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Requests\Api\Auth\ChangePasswordRequest;
+use App\Http\Requests\Api\Auth\UpdateProfileRequest;
 use App\Services\Api\AuthService;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
-    public function __construct(private AuthService $authService) {}
+    public function __construct(private AuthService $authService) {
+        $this->middleware('permission:api.user.profile')->only('me');
+        $this->middleware('permission:api.user.logout')->only('logout');
+        $this->middleware('permission:api.user.verify.email')->only('verifyEmail');
+        $this->middleware('permission:api.user.change.password')->only('changePassword');
+        $this->middleware('permission:api.user.update.profile')->only('updateProfile');
+    }
 
     public function register(RegisterRequest $request)
     {
@@ -29,5 +37,20 @@ class AuthController extends Controller
     public function me()
     {
         return $this->authService->me();
+    }
+
+    public function verifyEmail()
+    {
+        return $this->authService->verifyEmail();
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        return $this->authService->changePassword($request->validated());
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        return $this->authService->updateProfile($request->validated());
     }
 }

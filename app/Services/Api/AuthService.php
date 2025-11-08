@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
@@ -27,7 +29,7 @@ class AuthService
             'token' => $token,
         ];
     
-        return $this->success('User registered successfully', $responseData, 201);
+        return $this->created('User registered successfully', $responseData);
     }
     
 
@@ -40,15 +42,11 @@ class AuthService
         /** @var \App\Models\User $user */
         $user = Auth::user();
     
-        // Check if the user already has a token
-        $existingToken = $user->tokens()->where('name', 'api_token')->first();
-    
-        if ($existingToken) {
-            $token = $existingToken->plainTextToken ?? $existingToken->id . '|' . $existingToken->token;
-        } else {
-            // Create new token only if none exists
-            $token = $user->createToken('api_token')->plainTextToken;
-        }
+        // Revoke all existing tokens for security
+        $user->tokens()->delete();
+        
+        // Create new token
+        $token = $user->createToken('api_token')->plainTextToken;
     
         return $this->success('Login successful', [
             'token' => $token,
@@ -60,7 +58,12 @@ class AuthService
 
     public function logout()
     {
-        Auth::user()?->currentAccessToken()?->delete();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        
+        if ($user) {
+            $user->tokens()->delete();
+        }
 
         return $this->success('Logged out successfully');
     }
@@ -68,5 +71,53 @@ class AuthService
     public function me()
     {
         return $this->success('User data retrieved', new UserResource(Auth::user()));
+    }
+
+    public function verifyEmail()
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        
+        if ($user->hasVerifiedEmail()) {
+            return $this->error('Email already verified', [], 400);
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        return $this->success('Verification email sent successfully');
+    }
+
+    public function changePassword(array $data)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        // Verify current password
+        if (!Hash::check($data['current_password'], $user->password)) {
+            return $this->error('Current password is incorrect', [], 400);
+        }
+
+        // Update password
+        $user->update([
+            'password' => Hash::make($data['password'])
+        ]);
+
+        // Revoke all tokens for security
+        $user->tokens()->delete();
+
+        return $this->success('Password changed successfully. Please login again.');
+    }
+
+    public function updateProfile(array $data)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $user->update([
+            'name'  => $data['name'],
+            'email' => $data['email'],
+        ]);
+
+        return $this->success('Profile updated successfully', new UserResource($user));
     }
 }
