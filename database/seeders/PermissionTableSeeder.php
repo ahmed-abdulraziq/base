@@ -56,8 +56,14 @@ class PermissionTableSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach ($this->permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+        // Create permissions for both web and admin guards
+        $guards = ['web', 'admin'];
+        foreach ($guards as $guard) {
+            foreach ($this->permissions as $permission) {
+                Permission::firstOrCreate(
+                    ['name' => $permission, 'guard_name' => $guard]
+                );
+            }
         }
     }
 }

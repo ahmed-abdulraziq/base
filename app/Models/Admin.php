@@ -8,18 +8,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
-use App\Traits\HasAttachment;
+use App\Traits\HasAttachments;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory, Notifiable, HasRoles, HasApiTokens, HasAttachment;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens, HasAttachments;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
+    protected $table = 'admins';
+
+    protected $guard_name = 'admin';
+
     protected $fillable = [
         'name',
         'email',

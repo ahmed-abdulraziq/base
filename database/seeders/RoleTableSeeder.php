@@ -76,9 +76,23 @@ class RoleTableSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach ($this->roles as $roleName => $permissions) {
-            $role = Role::firstOrCreate(['name' => $roleName]);
-            $role->syncPermissions($permissions);
+        // Create roles for admin guard (super_admin and admin)
+        $adminRoles = ['super_admin', 'admin'];
+        foreach ($adminRoles as $roleName) {
+            if (isset($this->roles[$roleName])) {
+                $role = Role::firstOrCreate(
+                    ['name' => $roleName, 'guard_name' => 'admin']
+                );
+                $role->syncPermissions($this->roles[$roleName]);
+            }
+        }
+
+        // Create role for web guard (user)
+        if (isset($this->roles['user'])) {
+            $role = Role::firstOrCreate(
+                ['name' => 'user', 'guard_name' => 'web']
+            );
+            $role->syncPermissions($this->roles['user']);
         }
     }
 }
