@@ -4,166 +4,191 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://github.com/laravel/framework/actions">
-    <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
-  </a>
-  <a href="https://packagist.org/packages/laravel/framework">
-    <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
-  </a>
-  <a href="https://packagist.org/packages/laravel/framework">
-    <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
-  </a>
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
-  </a>
-</p>
+---
+
+# Laravel Base Project
+
+A **clean, scalable, and ready-to-use Laravel 12 base project** designed to kickstart new web applications with best practices and pre-configured essentials.
+
+This base includes popular, production-tested packages and a structured codebase for APIs, dashboards, and multilingual apps.
 
 ---
 
-# 🧱 Laravel Base Project
+## Features
 
-A **clean, scalable, and ready-to-use Laravel 12 base project** designed to help you kickstart new web applications with best practices and pre-configured essentials.
-
-This base includes the most popular and production-tested packages used in professional Laravel projects.
-
----
-
-## 🚀 Features
-
-- Laravel **12.x** (PHP ^8.2)
-- Authentication with **Sanctum**
-- Roles & Permissions using **Spatie**
-- Multi-language support via **Astrotomic Translatable**
-- Slug management via **Cviebrock Eloquent Sluggable**
-- Datatables ready via **Yajra**
-- Breadcrumbs system with **Diglactic Breadcrumbs**
-- Image processing using **Intervention Image**
-- Google API integration via **Google Auth**
-- Developer-friendly tools like Pint, Sail, Pail, and Collision
+- **Laravel 12.x** (PHP ^8.2)
+- **Authentication**: Sanctum (API) + session (Dashboard)
+- **Roles & Permissions**: Spatie Laravel Permission
+- **Activity Log**: Spatie Activity Log
+- **Multi-language**: Astrotomic Translatable (see [docs/LOCALIZATION.md](docs/LOCALIZATION.md))
+- **Slug management**: Cviebrock Eloquent Sluggable
+- **Datatables**: Yajra Laravel Datatables
+- **Breadcrumbs**: Diglactic Breadcrumbs
+- **Image processing**: Intervention Image
+- **Google API**: Google Auth
+- **Social login**: Laravel Socialite
+- **Debug & monitoring**: Laravel Telescope
+- **Developer tools**: Pint, Sail, Pail, Collision
 
 ---
 
-## 📦 Composer Dependencies
+## Composer Dependencies
 
 ### Required
-| Package | Description |
-|----------|-------------|
-| `laravel/framework` | Laravel core framework |
-| `laravel/sanctum` | API authentication |
-| `spatie/laravel-permission` | Role & Permission system |
-| `astrotomic/laravel-translatable` | Multilingual support |
-| `cviebrock/eloquent-sluggable` | Auto slug generator |
-| `diglactic/laravel-breadcrumbs` | Breadcrumbs for navigation |
-| `yajra/laravel-datatables-oracle` | Datatables integration |
-| `intervention/image` | Image manipulation |
-| `google/auth` | Google API support |
 
-### Dev Dependencies
+| Package | Description |
+|---------|-------------|
+| `laravel/framework` | Laravel core |
+| `laravel/sanctum` | API authentication |
+| `laravel/socialite` | OAuth / social login |
+| `laravel/telescope` | Debug & monitoring |
+| `spatie/laravel-permission` | Roles & permissions |
+| `spatie/laravel-activitylog` | Activity logging |
+| `astrotomic/laravel-translatable` | Multilingual models |
+| `cviebrock/eloquent-sluggable` | Auto slugs |
+| `diglactic/laravel-breadcrumbs` | Breadcrumbs |
+| `yajra/laravel-datatables-oracle` | Datatables |
+| `intervention/image` | Image manipulation |
+| `google/auth` | Google API |
+
+### Dev
+
 | Package | Purpose |
-|----------|----------|
-| `laravel/pint` | Code style fixer |
-| `laravel/sail` | Local dev environment |
-| `laravel/pail` | Real-time logging |
+|---------|---------|
+| `laravel/pint` | Code style |
+| `laravel/sail` | Docker dev environment |
+| `laravel/pail` | Real-time logs |
 | `nunomaduro/collision` | Error reporting |
-| `phpunit/phpunit` | Unit testing |
-| `fakerphp/faker` | Dummy data |
-| `mockery/mockery` | Mocking for tests |
+| `phpunit/phpunit` | Testing |
+| `fakerphp/faker` | Fake data |
+| `mockery/mockery` | Mocking |
 
 ---
 
-## 🧩 Project Setup
+## Project Setup
 
-### 1️⃣ Clone the repository
+### 1. Clone
+
 ```bash
 git clone https://github.com/ahmed-abdulraziq/base.git
-cd laravel-base
+cd base
 ```
 
-### 2️⃣ Install dependencies
+### 2. Install dependencies
+
 ```bash
 composer install
 npm install && npm run dev
 ```
 
-### 3️⃣ Configure environment
+### 3. Environment
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-### 4️⃣ Run migrations
+### 4. Database
+
 ```bash
 php artisan migrate --seed
 ```
 
-### 5️⃣ Start the app
+### 5. Run
+
 ```bash
 php artisan serve
 ```
 
 ---
 
-## 🧰 Developer Commands
+## Developer Commands
 
 | Command | Description |
-|----------|-------------|
-| `composer dev` | Runs all dev services (server, queue, logs, Vite) concurrently |
-| `composer test` | Runs all Laravel tests |
+|--------|-------------|
+| `composer dev` | Server + queue + pail + Vite together |
+| `composer test` | Run tests |
 | `php artisan pail` | Real-time log stream |
-| `php artisan queue:listen` | Queue listener |
+| `php artisan queue:listen` | Queue worker |
+| `php artisan telescope:install` | Publish Telescope assets (if needed) |
 
 ---
 
-## 🗂️ Recommended Folder Structure
+## Project Structure
 
 ```
 app/
- ├── Http/
- │    ├── Controllers/
- │    │    ├── Api/
- │    │    └── Dashboard/
- │    ├── Middleware/
- │    └── Requests/
- ├── Models/
- ├── Traits/
- └── Services/
+├── Console/Commands/
+├── Exceptions/
+├── Helpers/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Api/
+│   │   └── Dashboard/
+│   ├── Middleware/
+│   ├── Requests/
+│   │   ├── Api/
+│   │   └── Dashboard/
+│   └── Resources/
+├── Jobs/
+├── Models/
+├── Notifications/
+├── Observers/
+├── Providers/
+├── Services/
+│   ├── Api/
+│   └── Dashboard/
+└── Traits/
 
 config/
 database/
+docs/           # e.g. LOCALIZATION.md
 resources/
 routes/
- ├── api.php
- └── web.php
+├── api.php
+├── web.php
+├── dashboard.php
+├── Breadcrumbs.php
+└── console.php
 ```
 
 ---
 
-## 🧭 Trello Workflow
+## Included Functionality
 
-If you’re managing the project with Trello, here’s the suggested **Kanban structure**:
-
-- 📁 **Files & Links** – Docs, repo, setup notes  
-- 📝 **To-Do** – Planned tasks  
-- ⚡ **Do Today** – Tasks for the current day  
-- 🛠️ **In Progress** – Active work  
-- 🔍 **Review** – Pending testing or approval  
-- ✅ **Done** – Completed features
+- **Dashboard**: Auth, users, roles, permissions, settings
+- **API**: Auth (login, register, profile), base controllers, JSON responses
+- **Attachments**: Model, observer, service, `HasAttachments` trait
+- **Notifications**: Base notification, jobs, password reset, user registered
+- **Localization**: RTL/LTR, session/cookie, docs in `docs/LOCALIZATION.md`
 
 ---
 
-## 👤 Author
+## Trello Workflow (optional)
+
+Suggested Kanban columns:
+
+- **Files & Links** – Docs, repo, setup
+- **To-Do** – Backlog
+- **Do Today** – Daily focus
+- **In Progress** – Active work
+- **Review** – Testing / QA
+- **Done** – Completed
+
+---
+
+## Author
 
 **Ahmed Abdulraziq**  
 Backend Laravel Developer  
-[GitHub Profile](https://github.com/ahmed-abdulraziq)
+[GitHub](https://github.com/ahmed-abdulraziq)
 
 ---
 
-## 📄 License
+## License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT — see [LICENSE](https://opensource.org/licenses/MIT).
 
 ---
 
-> 🧠 Tip: Use this base as a template for new Laravel projects. It includes most of the setup you’ll need for APIs, dashboards, and multilingual apps.
+> Use this base as a template for new Laravel projects. It covers APIs, dashboards, permissions, and multilingual apps out of the box.
