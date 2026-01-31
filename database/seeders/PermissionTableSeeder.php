@@ -46,6 +46,9 @@ class PermissionTableSeeder extends Seeder
         // Dashboard Permissions
         'view.dashboard',
         'view.admin.dashboard',
+
+        // Settings (صفحة الإعدادات)
+        'view.settings',
         
         // System Permissions
         'manage.system',

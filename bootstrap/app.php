@@ -20,7 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class
         ]);
-        $middleware->group('api', [
+        // إضافة SetLocaleMiddleware لمجموعة web دون استبدال الـ middleware الافتراضي (Session، إلخ)
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocaleMiddleware::class,
+        ]);
+        $middleware->api(append: [
             \App\Http\Middleware\SetLocaleMiddleware::class,
         ]);
     })

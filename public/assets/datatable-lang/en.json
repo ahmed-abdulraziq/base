@@ -1,0 +1,199 @@
+{
+    "loadingRecords": "Loading...",
+    "zeroRecords": "No matching records found",
+    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+    "infoFiltered": "(filtered from _MAX_ total entries)",
+    "search": "Search:",
+    "paginate": {
+        "first": "First",
+        "previous": "Previous",
+        "next": "Next",
+        "last": "Last"
+    },
+    "aria": {
+        "sortAscending": ": activate to sort column ascending",
+        "sortDescending": ": activate to sort column descending"
+    },
+    "select": {
+        "rows": {
+            "_": "%d rows selected",
+            "1": "1 row selected"
+        },
+        "cells": {
+            "1": "1 cell selected",
+            "_": "%d cells selected"
+        },
+        "columns": {
+            "1": "1 column selected",
+            "_": "%d columns selected"
+        }
+    },
+    "buttons": {
+        "print": "Print",
+        "copyKeys": "Press <i>ctrl</i> or <i>⌘</i> + <i>C</i> on the table<br>to copy to clipboard<br><br>To cancel click on the message or press the Escape key.",
+        "pageLength": {
+            "-1": "Show all",
+            "_": "Show %d rows"
+        },
+        "collection": "Collection",
+        "copy": "Copy",
+        "copyTitle": "Copy to clipboard",
+        "csv": "CSV",
+        "excel": "Excel",
+        "pdf": "PDF",
+        "colvis": "Column visibility",
+        "colvisRestore": "Restore visibility",
+        "copySuccess": {
+            "1": "1 row copied to clipboard",
+            "_": "%ds rows copied to clipboard"
+        }
+    },
+    "searchBuilder": {
+        "add": "Add condition",
+        "clearAll": "Clear all",
+        "condition": "Condition",
+        "data": "Data",
+        "logicAnd": "And",
+        "logicOr": "Or",
+        "title": [
+            "Search builder"
+        ],
+        "value": "Value",
+        "conditions": {
+            "date": {
+                "after": "After",
+                "before": "Before",
+                "between": "Between",
+                "empty": "Empty",
+                "equals": "Equals",
+                "not": "Not",
+                "notBetween": "Not between",
+                "notEmpty": "Not empty"
+            },
+            "number": {
+                "between": "Between",
+                "empty": "Empty",
+                "equals": "Equals",
+                "gt": "Greater than",
+                "gte": "Greater than or equal",
+                "lt": "Less than",
+                "lte": "Less than or equal",
+                "not": "Not",
+                "notBetween": "Not between",
+                "notEmpty": "Not empty"
+            },
+            "string": {
+                "contains": "Contains",
+                "empty": "Empty",
+                "endsWith": "Ends with",
+                "equals": "Equals",
+                "not": "Not",
+                "notEmpty": "Not empty",
+                "startsWith": "Starts with"
+            }
+        },
+        "button": {
+            "0": "Search filters",
+            "_": "Search filters (%d)"
+        },
+        "deleteTitle": "Delete filter"
+    },
+    "searchPanes": {
+        "clearMessage": "Clear all",
+        "collapse": {
+            "0": "Search",
+            "_": "Search (%d)"
+        },
+        "count": "Count",
+        "countFiltered": "Filtered count",
+        "loadMessage": "Loading...",
+        "title": "Active filters",
+        "showMessage": "Show all",
+        "collapseMessage": "Collapse all"
+    },
+    "infoThousands": ",",
+    "datetime": {
+        "previous": "Previous",
+        "next": "Next",
+        "hours": "Hour",
+        "minutes": "Minute",
+        "seconds": "Second",
+        "unknown": "-",
+        "amPm": [
+            "am",
+            "pm"
+        ],
+        "weekdays": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ],
+        "months": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    },
+    "editor": {
+        "close": "Close",
+        "create": {
+            "button": "Add",
+            "title": "Add new",
+            "submit": "Submit"
+        },
+        "edit": {
+            "button": "Edit",
+            "title": "Edit record",
+            "submit": "Update"
+        },
+        "remove": {
+            "button": "Delete",
+            "title": "Delete",
+            "submit": "Delete",
+            "confirm": {
+                "_": "Are you sure you want to delete %d selected records?",
+                "1": "Are you sure you want to delete this record?"
+            }
+        },
+        "error": {
+            "system": "An error occurred"
+        },
+        "multi": {
+            "title": "Multiple values",
+            "restore": "Restore"
+        }
+    },
+    "processing": "Processing...",
+    "emptyTable": "No data available in table",
+    "infoEmpty": "Showing 0 to 0 of 0 entries",
+    "thousands": ".",
+    "stateRestore": {
+        "creationModal": {
+            "columns": {
+                "search": "Column search",
+                "visible": "Column visibility"
+            },
+            "toggleLabel": "Include"
+        }
+    },
+    "autoFill": {
+        "cancel": "Cancel",
+        "fill": "Fill all cells with <i>%d</i>",
+        "fillHorizontal": "Fill cells horizontally",
+        "fillVertical": "Fill cells vertically"
+    },
+    "decimal": "."
+}

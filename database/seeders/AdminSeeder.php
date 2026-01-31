@@ -14,23 +14,23 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Super Admin
+        // Create Super Admin + assign role super_admin (صلاحية super_admin)
         $superAdmin = Admin::firstOrCreate(
-            ['email' => 'superadmin@example.com'],
+            ['email' => 'super@test.com'],
             [
                 'name' => 'Super Admin',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'email_verified_at' => now(),
             ]
         );
-        $superAdmin->assignRole('super_admin');
+        $superAdmin->syncRoles(['super']);
 
         // Create Regular Admin
         $admin = Admin::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@test.com'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'email_verified_at' => now(),
             ]
         );
@@ -38,14 +38,26 @@ class AdminSeeder extends Seeder
 
         // Create Test User
         $user = User::firstOrCreate(
-            ['email' => 'user@example.com'],
+            ['email' => 'user@test.com'],
             [
                 'name' => 'Test User',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'email_verified_at' => now(),
             ]
         );
         $user->assignRole('user');
+
+        // 2000 Users
+        for ($i = 0; $i < 2000; $i++) {
+            $u = User::factory()->create();
+            $u->assignRole('user');
+        }
+
+        // 20 Admins
+        for ($i = 0; $i < 20; $i++) {
+            $a = Admin::factory()->create();
+            $a->assignRole('admin');
+        }
     }
 }
 

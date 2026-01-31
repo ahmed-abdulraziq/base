@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Role;
 class RoleTableSeeder extends Seeder
 {
     protected $roles = [
-        'super_admin' => [
+        'super' => [
             // All permissions
             'api.user.profile',
             'api.user.logout', 
@@ -37,11 +37,12 @@ class RoleTableSeeder extends Seeder
             'view.permissions',
             'view.dashboard',
             'view.admin.dashboard',
+            'view.settings',
             'manage.system',
             'view.system.logs',
         ],
         'admin' => [
-            // Admin permissions
+            // Admin permissions (بدون إدارة الصلاحيات - للـ super فقط)
             'api.user.profile',
             'api.user.logout', 
             'api.user.verify.email',
@@ -56,8 +57,6 @@ class RoleTableSeeder extends Seeder
             'view.admins',
             'view.role',
             'view.roles',
-            'view.permission',
-            'view.permissions',
             'view.dashboard',
             'view.admin.dashboard',
         ],
@@ -77,7 +76,7 @@ class RoleTableSeeder extends Seeder
     public function run(): void
     {
         // Create roles for admin guard (super_admin and admin)
-        $adminRoles = ['super_admin', 'admin'];
+        $adminRoles = ['super', 'admin'];
         foreach ($adminRoles as $roleName) {
             if (isset($this->roles[$roleName])) {
                 $role = Role::firstOrCreate(

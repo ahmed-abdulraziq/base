@@ -8,6 +8,7 @@ use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use App\Http\Requests\Api\Auth\UpdateProfileRequest;
 use App\Services\Api\AuthService;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends BaseController
 {
@@ -52,5 +53,15 @@ class AuthController extends BaseController
     public function updateProfile(UpdateProfileRequest $request)
     {
         return $this->authService->updateProfile($request->validated());
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        return $this->authService->googleLogin();
     }
 }

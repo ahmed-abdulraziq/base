@@ -44,24 +44,6 @@ return [
             'time_format' => 'h:i:s A',
             'datetime_format' => 'm/d/Y h:i:s A',
         ],
-        'es' => [
-            'name' => 'Español',
-            'native' => 'Español',
-            'flag' => '🇪🇸',
-            'direction' => 'ltr',
-            'date_format' => 'd/m/Y',
-            'time_format' => 'H:i:s',
-            'datetime_format' => 'd/m/Y H:i:s',
-        ],
-        'fr' => [
-            'name' => 'Français',
-            'native' => 'Français',
-            'flag' => '🇫🇷',
-            'direction' => 'ltr',
-            'date_format' => 'd/m/Y',
-            'time_format' => 'H:i:s',
-            'datetime_format' => 'd/m/Y H:i:s',
-        ],
     ],
 
     /*

@@ -1,0 +1,95 @@
+[dir="rtl"] table.dataTable {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] table.dataTable thead th {
+    text-align: right;
+}
+[dir="rtl"] table.dataTable tbody td {
+    padding-right: 26px;
+    padding-left: 10px;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.dataTables_paginate {
+    display: none !important;
+}
+
+#custom-pagination .page-item.active .page-link {
+    background-color: #467fcf;
+    border-color: #467fcf;
+    color: white;
+}
+
+#custom-pagination .page-link {
+    color: #467fcf;
+}
+
+/* إخفاء عناصر DataTables الافتراضية */
+.dataTables_length, 
+.dataTables_paginate,
+.dataTables_info {
+    display: none !important;
+}
+
+/* تنسيق عنصر اختيار عدد الصفوف */
+.card-footer .form-select-sm {
+    width: 70px;
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0.25rem 0.5rem;
+}
+
+.card-footer .form-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* تحسين مظهر الـ Pagination */
+.pagination {
+    gap: 5px;
+}
+#custom-pagination {
+    gap: 5px;
+}
+
+#custom-pagination .page-item .page-link {
+    border-radius: 4px;
+    min-width: 32px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#custom-pagination .page-item.active .page-link {
+    background-color: #467fcf;
+    border-color: #467fcf;
+}
+
+#custom-pagination .page-item.disabled .page-link {
+    opacity: 0.6;
+}
+
+#showing-entries {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+#showing-entries span {
+    font-weight: 600;
+    color: #495057;
+}
+
+.line {
+    margin: 20px auto;
+    border-top: 2px dashed #e0e0e0;
+    width: calc(100% + 20px);
+}

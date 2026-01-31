@@ -28,6 +28,8 @@ class Admin extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'google_id',
+        'avatar',
     ];
 
     /**
@@ -51,5 +53,10 @@ class Admin extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
         ];
+    }
+
+    public function getRoleAttribute(): string
+    {
+        return $this->getRoleNames()->first() ?? 'admin';
     }
 }

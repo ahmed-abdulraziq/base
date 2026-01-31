@@ -1,0 +1,1 @@
+<!-- resources/views/components/forms/hidden.blade.php -->

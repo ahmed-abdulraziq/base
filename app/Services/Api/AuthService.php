@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthService
 {
@@ -119,5 +120,55 @@ class AuthService
         ]);
 
         return $this->success('Profile updated successfully', new UserResource($user));
+    }
+
+    public function googleLogin()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+            
+            // Check if user exists with this google_id
+            $user = User::where('google_id', $googleUser->getId())->first();
+            
+            // If user doesn't exist, check by email
+            if (!$user) {
+                $user = User::where('email', $googleUser->getEmail())->first();
+                
+                // If user exists with email but no google_id, update it
+                if ($user) {
+                    $user->update([
+                        'google_id' => $googleUser->getId(),
+                        'avatar' => $googleUser->getAvatar(),
+                    ]);
+                } else {
+                    // Create new user
+                    $user = User::create([
+                        'name' => $googleUser->getName(),
+                        'email' => $googleUser->getEmail(),
+                        'google_id' => $googleUser->getId(),
+                        'avatar' => $googleUser->getAvatar(),
+                        'email_verified_at' => now(), // Google emails are verified
+                    ]);
+                }
+            } else {
+                // Update avatar in case it changed
+                $user->update([
+                    'avatar' => $googleUser->getAvatar(),
+                ]);
+            }
+            
+            // Revoke all existing tokens for security
+            $user->tokens()->delete();
+            
+            // Create new token
+            $token = $user->createToken('api_token')->plainTextToken;
+            
+            return $this->success('Login successful', [
+                'token' => $token,
+                'user' => new UserResource($user),
+            ]);
+        } catch (\Exception $e) {
+            return $this->error('Google login failed: ' . $e->getMessage(), [], 400);
+        }
     }
 }

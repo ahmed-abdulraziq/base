@@ -18,6 +18,8 @@ Route::prefix('auth')->group(function () {
     // Public routes
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::get('google', [AuthController::class, 'redirectToGoogle']);
+    Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
