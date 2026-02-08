@@ -12,7 +12,7 @@ class AuthService
 {
     public function login(array $data): RedirectResponse
     {
-        $remember = $data['remember'] ?? false;
+        $remember = (bool) ($data['remember'] ?? false);
 
         if (! Auth::guard('admin')->attempt([
             'email' => $data['email'],
