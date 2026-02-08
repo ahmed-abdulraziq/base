@@ -288,3 +288,82 @@ Breadcrumbs::for('variations.edit', function (BreadcrumbTrail $trail, $variation
     $trail->parent('variations');
     $trail->push(__('translate.edit') . ' - #' . $variation->id, '#');
 });
+
+// العيادة / Clinic
+Breadcrumbs::for('clinic.specializations', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.specializations'), route('dashboard.clinic.specializations.index'));
+});
+Breadcrumbs::for('clinic.specializations.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.specializations');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.specializations.edit', function (BreadcrumbTrail $trail, $specialization) {
+    $trail->parent('clinic.specializations');
+    $trail->push(__('translate.edit') . ' - ' . ($specialization->specialization_name ?? $specialization->specialization_id), '#');
+});
+
+Breadcrumbs::for('clinic.doctors', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.doctors'), route('dashboard.clinic.doctors.index'));
+});
+Breadcrumbs::for('clinic.doctors.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.doctors');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.doctors.edit', function (BreadcrumbTrail $trail, $doctor) {
+    $trail->parent('clinic.doctors');
+    $trail->push(__('translate.edit') . ' - ' . ($doctor->full_name ?? $doctor->doctor_id), '#');
+});
+
+Breadcrumbs::for('clinic.employees', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.employees'), route('dashboard.clinic.employees.index'));
+});
+Breadcrumbs::for('clinic.employees.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.employees');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.employees.edit', function (BreadcrumbTrail $trail, $employee) {
+    $trail->parent('clinic.employees');
+    $trail->push(__('translate.edit') . ' - ' . ($employee->full_name ?? $employee->employee_id), '#');
+});
+
+Breadcrumbs::for('clinic.patients', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.patients'), route('dashboard.clinic.patients.index'));
+});
+Breadcrumbs::for('clinic.patients.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.patients');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.patients.edit', function (BreadcrumbTrail $trail, $patient) {
+    $trail->parent('clinic.patients');
+    $trail->push(__('translate.edit') . ' - ' . ($patient->full_name ?? $patient->patient_id), '#');
+});
+
+Breadcrumbs::for('clinic.medications', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.medications'), route('dashboard.clinic.medications.index'));
+});
+Breadcrumbs::for('clinic.medications.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.medications');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.medications.edit', function (BreadcrumbTrail $trail, $medication) {
+    $trail->parent('clinic.medications');
+    $trail->push(__('translate.edit') . ' - ' . ($medication->medication_name ?? $medication->medication_id), '#');
+});
+
+Breadcrumbs::for('clinic.appointments', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(__('translate.appointments'), route('dashboard.clinic.appointments.index'));
+});
+Breadcrumbs::for('clinic.appointments.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('clinic.appointments');
+    $trail->push(__('translate.create'), '#');
+});
+Breadcrumbs::for('clinic.appointments.edit', function (BreadcrumbTrail $trail, $appointment) {
+    $trail->parent('clinic.appointments');
+    $trail->push(__('translate.edit') . ' - #' . ($appointment->appointment_id ?? ''), '#');
+});

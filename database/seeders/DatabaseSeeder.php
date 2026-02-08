@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             AdminSeeder::class,
         ]);
+
+        // Seed clinic data
+        $this->call(ClinicDatabaseSeeder::class);
     }
 }

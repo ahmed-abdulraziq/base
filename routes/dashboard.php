@@ -8,6 +8,12 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\PermissionController;
+use App\Http\Controllers\Dashboard\SpecializationController;
+use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\MedicationController;
+use App\Http\Controllers\Dashboard\AppointmentController;
 
 // Guest routes (no auth required)
 Route::middleware('guest:admin')->group(function () {
@@ -43,4 +49,25 @@ Route::middleware('auth:admin')->group(function () {
     // Admins (المدراء)
     Route::get('admins/data', [AdminController::class, 'data'])->name('admins.data');
     Route::resource('admins', AdminController::class)->except(['show']);
+
+    // Clinic (العيادة)
+    Route::prefix('clinic')->name('clinic.')->group(function () {
+        Route::get('specializations/data', [SpecializationController::class, 'data'])->name('specializations.data');
+        Route::resource('specializations', SpecializationController::class)->except(['show']);
+
+        Route::get('doctors/data', [DoctorController::class, 'data'])->name('doctors.data');
+        Route::resource('doctors', DoctorController::class)->except(['show']);
+
+        Route::get('employees/data', [EmployeeController::class, 'data'])->name('employees.data');
+        Route::resource('employees', EmployeeController::class)->except(['show']);
+
+        Route::get('patients/data', [PatientController::class, 'data'])->name('patients.data');
+        Route::resource('patients', PatientController::class)->except(['show']);
+
+        Route::get('medications/data', [MedicationController::class, 'data'])->name('medications.data');
+        Route::resource('medications', MedicationController::class)->except(['show']);
+
+        Route::get('appointments/data', [AppointmentController::class, 'data'])->name('appointments.data');
+        Route::resource('appointments', AppointmentController::class)->except(['show']);
+    });
 });

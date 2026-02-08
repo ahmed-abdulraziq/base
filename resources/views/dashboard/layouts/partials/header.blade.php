@@ -299,7 +299,6 @@
                                 <li class="nav-item @yield('users')">
                                     <a class="nav-link" href="{{ route('dashboard.users.index') }}">
                                         <span class="nav-link-icon">
-                                            <!-- Download SVG icon from http://tabler.io/icons/icon/users -->
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -314,6 +313,112 @@
                                         <span class="nav-link-title">
                                             @lang('translate.users')
                                         </span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - التخصصات --------------------------------------------- --}}
+                            @can('view.specializations')
+                                <li class="nav-item @yield('clinic_specializations')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.specializations.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-stethoscope">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M6 4h-1a2 2 0 0 0 -2 2v3.5h0a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5 -1.5h0v-3a2 2 0 0 0 -2 -2h-1" />
+                                                <path d="M4.5 17a2 2 0 0 0 2 2h1a2 2 0 0 0 2 -2v-3.5h-5v3.5" />
+                                                <path d="M12 8v5" />
+                                                <path d="M12 17v.01" />
+                                                <path d="M16 17v.01" />
+                                                <path d="M15 8a2 2 0 0 1 2 2v3" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.specializations')</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - الأطباء --------------------------------------------- --}}
+                            @can('view.doctors')
+                                <li class="nav-item @yield('clinic_doctors')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.doctors.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.doctors')</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - الموظفين --------------------------------------------- --}}
+                            @can('view.employees')
+                                <li class="nav-item @yield('clinic_employees')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.employees.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="9" cy="7" r="4" />
+                                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.employees')</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - المرضى --------------------------------------------- --}}
+                            @can('view.patients')
+                                <li class="nav-item @yield('clinic_patients')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.patients.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="12" cy="12" r="9" />
+                                                <circle cx="12" cy="10" r="3" />
+                                                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.patients')</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - الأدوية --------------------------------------------- --}}
+                            @can('view.medications')
+                                <li class="nav-item @yield('clinic_medications')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.medications.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pill">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M4.5 12.5l8 -8a4.94 4.94 0 0 1 7 7l-8 8a4.94 4.94 0 0 1 -7 -7" />
+                                                <path d="M8.5 8.5l7 7" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.medications')</span>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            {{-- clinic - المواعيد --------------------------------------------- --}}
+                            @can('view.appointments')
+                                <li class="nav-item @yield('clinic_appointments')">
+                                    <a class="nav-link" href="{{ route('dashboard.clinic.appointments.index') }}">
+                                        <span class="nav-link-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-check">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M11.5 21h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
+                                                <path d="M16 3v4" />
+                                                <path d="M8 3v4" />
+                                                <path d="M4 11h16" />
+                                                <path d="M15 19l2 2l4 -4" />
+                                            </svg>
+                                        </span>
+                                        <span class="nav-link-title">@lang('translate.appointments')</span>
                                     </a>
                                 </li>
                             @endcan

@@ -14,6 +14,12 @@
 @if($embedded)
     {{-- فلتر مضمن: حجم عادي للحقول والأزرار --}}
     <form id="{{ $formId }}" class="row g-3 align-items-end">
+        @if($showSearch)
+            <div class="col-auto">
+                <label for="{{ $formId }}-search" class="form-label text-muted mb-0">@lang('translate.search')</label>
+                <input type="text" class="form-control" id="{{ $formId }}-search" name="filter_search" placeholder="{{ __('translate.search') }}" style="min-width: 150px;">
+            </div>
+        @endif
         @if($showDateRange)
             <div class="col-auto">
                 <label for="{{ $formId }}-date-from" class="form-label text-muted mb-0">@lang('translate.date_from')</label>
@@ -34,6 +40,9 @@
                     @endforeach
                 </select>
             </div>
+        @endif
+        @if(isset($extra))
+            {{ $extra }}
         @endif
         <div class="col-auto d-flex gap-2">
             <button type="button" class="btn btn-primary filter-apply" data-table-id="{{ $tableId }}">

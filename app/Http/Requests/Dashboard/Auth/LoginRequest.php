@@ -11,12 +11,19 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'remember' => $this->boolean('remember'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             'email' => ['required', 'email', 'exists:admins,email'],
             'password' => ['required', 'string', 'min:6'],
-            'remember' => ['sometimes', 'boolean'],
+            'remember' => ['boolean'],
         ];
     }
 

@@ -49,6 +49,14 @@ class PermissionTableSeeder extends Seeder
 
         // Settings (صفحة الإعدادات)
         'view.settings',
+
+        // Clinic Permissions
+        'view.specializations',
+        'view.doctors',
+        'view.employees',
+        'view.patients',
+        'view.medications',
+        'view.appointments',
         
         // System Permissions
         'manage.system',
