@@ -80,16 +80,20 @@
     <script src="{{ asset('assets/preview/js/demo-theme.min.js') }}"></script>
     <!-- END DEMO THEME SCRIPT -->
     {{-- زر تبديل اللغة --}}
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1030;">
-        <div class="btn-group shadow-sm" role="group">
+    <div class="position-fixed top-0 end-0 m-3" style="z-index: 1030;">
+        <div class="d-flex gap-2 small">
             @foreach (get_available_locales() as $localeCode => $properties)
                 <a href="{{ get_locale_url($localeCode) }}"
-                    class="btn {{ get_current_locale() === $localeCode ? 'btn-primary' : 'btn-outline-primary' }} btn-sm">
-                    {{ $properties['native'] ?? $localeCode }}
+                   class="text-decoration-none fw-semibold
+                   {{ get_current_locale() === $localeCode 
+                        ? 'text-primary border-bottom border-2 border-primary pb-1' 
+                        : 'text-muted' }}">
+                    {{ strtoupper($localeCode) }}
                 </a>
             @endforeach
         </div>
     </div>
+    
     <div class="page page-center">
         @yield('content')
         {{-- <div class="container container-tight py-4">
