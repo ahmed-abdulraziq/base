@@ -12,16 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->increments('employee_id');
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
+            $table->id();
+            $table->foreignId('doctor_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('name', 100);
             $table->string('phone', 20);
             $table->string('email', 100)->nullable()->unique();
+            $table->string('password')->nullable();
+            $table->rememberToken();
             $table->string('job_title', 100);
             $table->decimal('salary', 10, 2)->nullable();
             $table->date('hire_date');
             $table->boolean('is_active')->default(true);
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
+
         });
     }
 

@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Medication;
+use App\Models\Patient;
+use App\Models\Prescription;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
@@ -26,6 +31,14 @@ class DashboardController extends Controller
             ->whereYear('created_at', Carbon::now()->year)
             ->count();
 
+        // إحصائيات العيادة
+        $patientsCount = Patient::count();
+        $doctorsCount = Doctor::count();
+        $appointmentsCount = Appointment::count();
+        $appointmentsToday = Appointment::whereDate('appointment_date', Carbon::today())->count();
+        $prescriptionsCount = Prescription::count();
+        $medicationsCount = Medication::count();
+
         // آخر 6 أشهر للإحصائيات (للـ chart)
         $chartMonths = [];
         $chartUsers = [];
@@ -46,6 +59,12 @@ class DashboardController extends Controller
             'adminsCount',
             'usersThisMonth',
             'adminsThisMonth',
+            'patientsCount',
+            'doctorsCount',
+            'appointmentsCount',
+            'appointmentsToday',
+            'prescriptionsCount',
+            'medicationsCount',
             'chartMonths',
             'chartUsers',
             'chartAdmins'

@@ -14,10 +14,9 @@ class PatientSeeder extends Seeder
     {
         $patients = [
             [
-                'first_name' => 'علي',
-                'last_name' => 'محمود',
+                'name' => 'علي محمود',
                 'date_of_birth' => '1990-05-20',
-                'gender' => 'ذكر',
+                'gender' => 'male',
                 'phone' => '01078901234',
                 'email' => 'ali.mahmoud@email.com',
                 'address' => 'القاهرة، مصر الجديدة',
@@ -26,10 +25,9 @@ class PatientSeeder extends Seeder
                 'emergency_contact_phone' => '01089012345',
             ],
             [
-                'first_name' => 'نور',
-                'last_name' => 'خالد',
+                'name' => 'نور خالد',
                 'date_of_birth' => '1985-08-15',
-                'gender' => 'أنثى',
+                'gender' => 'female',
                 'phone' => '01090123456',
                 'email' => 'nour.khaled@email.com',
                 'address' => 'الجيزة، المهندسين',
@@ -38,10 +36,9 @@ class PatientSeeder extends Seeder
                 'emergency_contact_phone' => '01001234567',
             ],
             [
-                'first_name' => 'محمد',
-                'last_name' => 'سعيد',
+                'name' => 'محمد سعيد',
                 'date_of_birth' => '2015-12-10',
-                'gender' => 'ذكر',
+                'gender' => 'male',
                 'phone' => '01012345670',
                 'email' => 'parent@email.com',
                 'address' => 'القاهرة، مدينة نصر',

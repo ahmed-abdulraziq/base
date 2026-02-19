@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\StoreMedicationRequest;
 use App\Http\Requests\Dashboard\UpdateMedicationRequest;
+use App\DataTables\Dashboard\MedicationDataTable;
 use App\Models\Medication;
+use App\Services\Dashboard\MedicationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Yajra\DataTables\Facades\DataTables;
 
 class MedicationController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(
+        protected MedicationService $medicationService
+    ) {
         $this->middleware('can:view.medications')->only(['index', 'data', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
@@ -26,28 +28,8 @@ class MedicationController extends Controller
 
     public function data(Request $request)
     {
-        $query = Medication::query();
-
-        if ($request->filled('filter_search')) {
-            $term = $request->filter_search;
-            $query->where(function ($q) use ($term) {
-                $q->where('medication_name', 'like', "%{$term}%")
-                    ->orWhere('generic_name', 'like', "%{$term}%")
-                    ->orWhere('manufacturer', 'like', "%{$term}%");
-            });
-        }
-        if ($request->filled('filter_date_from')) {
-            $query->whereDate('created_at', '>=', $request->filter_date_from);
-        }
-        if ($request->filled('filter_date_to')) {
-            $query->whereDate('created_at', '<=', $request->filter_date_to);
-        }
-
-        return DataTables::eloquent($query)
-            ->editColumn('created_at', fn ($m) => $m->created_at?->format('d/m/Y H:i'))
-            ->addColumn('actions', fn ($m) => view('dashboard.clinic.medications.datatable.actions', ['item' => $m])->render())
-            ->rawColumns(['actions'])
-            ->make(true);
+        $query = $this->medicationService->getFilteredQuery($request);
+        return MedicationDataTable::make($query, $request);
     }
 
     public function create(): View
@@ -57,7 +39,7 @@ class MedicationController extends Controller
 
     public function store(StoreMedicationRequest $request): RedirectResponse
     {
-        Medication::create($request->validated());
+        $this->medicationService->create($request->validated());
         return redirect()->route('dashboard.clinic.medications.index')
             ->with('success', __('translate.medication_added_successfully'));
     }
@@ -69,14 +51,14 @@ class MedicationController extends Controller
 
     public function update(UpdateMedicationRequest $request, Medication $medication): RedirectResponse
     {
-        $medication->update($request->validated());
+        $this->medicationService->update($medication, $request->validated());
         return redirect()->route('dashboard.clinic.medications.index')
             ->with('success', __('translate.medication_edited_successfully'));
     }
 
     public function destroy(Medication $medication): \Illuminate\Http\JsonResponse|RedirectResponse
     {
-        $medication->delete();
+        $this->medicationService->delete($medication);
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json(['status' => true, 'message' => __('translate.medication_deleted_successfully')]);
         }

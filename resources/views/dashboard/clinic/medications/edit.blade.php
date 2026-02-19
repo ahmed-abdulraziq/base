@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="col-md-12">
-        <x-forms.form route="dashboard.clinic.medications.update" :model="$medication->medication_id" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_medication')">
+        <x-forms.form route="dashboard.clinic.medications.update" :model="$medication" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_medication')">
 
             <x-forms.input name="medication_name" :label="__('translate.medication_name')" required :value="$medication->medication_name" col="col-md-6" />
             <x-forms.input name="generic_name" :label="__('translate.generic_name')" :value="$medication->generic_name" col="col-md-6" />

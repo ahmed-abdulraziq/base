@@ -1,5 +1,5 @@
 <div style="width: fit-content; display: flex; align-items: center;">
-    <a href="{{ route('dashboard.clinic.specializations.edit', $item->specialization_id) }}" class="text-primary p-1 mx-1 fs-6">
+    <a href="{{ route('dashboard.clinic.specializations.edit', $item) }}" class="text-primary p-1 mx-1 fs-6">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
@@ -9,7 +9,7 @@
             <path d="M16 5l3 3"/>
         </svg>
     </a>
-    <a href="javascript:void(0)" role="button" class="text-danger p-1 m-1 delete-btn cursor-pointer" data-url="{{ route('dashboard.clinic.specializations.destroy', $item->specialization_id) }}">
+    <a href="javascript:void(0)" role="button" class="text-danger p-1 m-1 delete-btn cursor-pointer" data-url="{{ route('dashboard.clinic.specializations.destroy', $item) }}">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="icon icon-tabler icons-tabler-outline icon-tabler-trash">

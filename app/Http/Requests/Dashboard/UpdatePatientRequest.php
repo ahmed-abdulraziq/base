@@ -14,10 +14,9 @@ class UpdatePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:50'],
-            'last_name' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:100'],
             'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'in:ذكر,أنثى'],
+            'gender' => ['required', 'in:male,female'],
             'phone' => ['required', 'string', 'max:20'],
             'email' => ['nullable', 'email', 'max:100'],
             'address' => ['nullable', 'string'],

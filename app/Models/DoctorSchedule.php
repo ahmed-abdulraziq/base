@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\DayOfWeek;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DoctorSchedule extends Model
 {
     protected $table = 'doctor_schedule';
-
-    protected $primaryKey = 'schedule_id';
 
     public $timestamps = true;
 
@@ -22,6 +21,7 @@ class DoctorSchedule extends Model
     ];
 
     protected $casts = [
+        'day_of_week' => DayOfWeek::class,
         'is_available' => 'boolean',
     ];
 
@@ -30,7 +30,7 @@ class DoctorSchedule extends Model
      */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\InvoicePaymentMethod;
+use App\Enums\InvoicePaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,25 +14,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->increments('invoice_id');
-            $table->unsignedInteger('patient_id');
-            $table->unsignedInteger('appointment_id')->nullable();
+            $table->id();
+            $table->foreignId('patient_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('appointment_id')->nullable()->constrained()->nullOnDelete();
             $table->dateTime('invoice_date');
             $table->decimal('total_amount', 10, 2);
             $table->decimal('paid_amount', 10, 2)->default(0);
-            $table->enum('payment_status', ['غير مدفوع', 'مدفوع جزئياً', 'مدفوع بالكامل'])->default('غير مدفوع');
-            $table->enum('payment_method', ['نقدي', 'بطاقة', 'تحويل بنكي'])->nullable();
+            $table->string('payment_status')->default(InvoicePaymentStatus::default())->comment(implode(',', InvoicePaymentStatus::values()));
+            $table->string('payment_method')->nullable()->comment(implode(',', InvoicePaymentMethod::values()));
             $table->text('notes')->nullable();
             $table->timestamps();
 
-            $table->foreign('patient_id')
-                ->references('patient_id')
-                ->on('patients')
-                ->cascadeOnDelete();
-            $table->foreign('appointment_id')
-                ->references('appointment_id')
-                ->on('appointments')
-                ->nullOnDelete();
         });
     }
 

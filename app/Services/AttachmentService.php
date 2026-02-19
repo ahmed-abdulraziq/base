@@ -9,30 +9,44 @@ use Illuminate\Support\Str;
 
 class AttachmentService
 {
-    public function store($model, $file, $field, $type = 'image', $user_id = null)
+    /**
+     * @param  mixed  $owner  Authenticatable model instance, or null to auto-detect from any guard.
+     */
+    public function store($model, $file, $field, $type = 'image', $owner = null)
     {
-        $folder = now()->format('Y/m');
+        // Auto-detect the authenticated user across all guards when no owner is supplied
+        if ($owner === null) {
+            foreach (['doctor', 'admin', 'employee', 'web'] as $guard) {
+                if (Auth::guard($guard)->check()) {
+                    $owner = Auth::guard($guard)->user();
+                    break;
+                }
+            }
+        }
+
+        $folder    = now()->format('Y/m');
         $extension = $file->getClientOriginalExtension() ?: 'png';
-        $fileName = Str::uuid() . '.' . $extension;
+        $fileName  = Str::uuid() . '.' . $extension;
 
         $path = $file->storeAs($folder, $fileName, 'public');
 
         return $model->attachments()->create([
-            'name' => $field,
-            'title' => $file->getClientOriginalName(),
-            'extension' => $extension,
-            'size' => $file->getSize(),
-            'path' => $path,
-            'type' => $type,
-            'user_id' => $user_id ?? Auth::id(),
+            'name'       => $field,
+            'title'      => $file->getClientOriginalName(),
+            'extension'  => $extension,
+            'size'       => $file->getSize(),
+            'path'       => $path,
+            'type'       => $type,
+            'owner_id'   => $owner?->id,
+            'owner_type' => $owner ? get_class($owner) : null,
         ]);
     }
 
-    public function storeMultiple($model, $files, $field, $type = 'image', $user_id = null)
+    public function storeMultiple($model, $files, $field, $type = 'image', $owner = null)
     {
         $attachments = [];
         foreach ($files as $file) {
-            $attachments[] = $this->store($model, $file, $field, $type, $user_id);
+            $attachments[] = $this->store($model, $file, $field, $type, $owner);
         }
         return $attachments;
     }

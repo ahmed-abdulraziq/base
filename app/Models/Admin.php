@@ -59,4 +59,9 @@ class Admin extends Authenticatable implements MustVerifyEmail
     {
         return $this->getRoleNames()->first() ?? 'admin';
     }
+
+    public function isApproved(): bool
+    {
+        return true;
+    }
 }

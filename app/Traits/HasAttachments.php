@@ -11,16 +11,16 @@ trait HasAttachments
         return $this->morphMany(Attachment::class, 'attachmentable');
     }
 
-    public function uploadFile($file, $field, $type = 'image', $user_id = null)
+    public function uploadFile($file, $field, $type = 'image', $owner = null)
     {
         return app(\App\Services\AttachmentService::class)
-            ->store($this, $file, $field, $type, $user_id);
+            ->store($this, $file, $field, $type, $owner);
     }
 
-    public function uploadMultiple($files, $field, $type = 'image', $user_id = null)
+    public function uploadMultiple($files, $field, $type = 'image', $owner = null)
     {
         return app(\App\Services\AttachmentService::class)
-            ->storeMultiple($this, $files, $field, $type, $user_id);
+            ->storeMultiple($this, $files, $field, $type, $owner);
     }
 
     public function getAttachment($field)

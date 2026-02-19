@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\InvoicePaymentMethod;
+use App\Enums\InvoicePaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,8 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Invoice extends Model
 {
     protected $table = 'invoices';
-
-    protected $primaryKey = 'invoice_id';
 
     public $timestamps = true;
 
@@ -29,6 +29,8 @@ class Invoice extends Model
         'invoice_date' => 'datetime',
         'total_amount' => 'decimal:2',
         'paid_amount' => 'decimal:2',
+        'payment_status' => InvoicePaymentStatus::class,
+        'payment_method' => InvoicePaymentMethod::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -38,7 +40,7 @@ class Invoice extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
     /**
@@ -46,7 +48,7 @@ class Invoice extends Model
      */
     public function appointment(): BelongsTo
     {
-        return $this->belongsTo(Appointment::class, 'appointment_id', 'appointment_id');
+        return $this->belongsTo(Appointment::class, 'appointment_id', 'id');
     }
 
     /**
@@ -54,7 +56,7 @@ class Invoice extends Model
      */
     public function details(): HasMany
     {
-        return $this->hasMany(InvoiceDetail::class, 'invoice_id', 'invoice_id');
+        return $this->hasMany(InvoiceDetail::class, 'invoice_id', 'id');
     }
 
     /**
@@ -62,7 +64,7 @@ class Invoice extends Model
      */
     public function scopePending($query)
     {
-        return $query->where('payment_status', '!=', 'مدفوع بالكامل');
+        return $query->where('payment_status', '!=', \App\Enums\InvoicePaymentStatus::Paid->value);
     }
 
     /**

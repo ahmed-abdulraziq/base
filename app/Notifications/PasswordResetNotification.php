@@ -50,8 +50,8 @@ class PasswordResetNotification extends BaseNotification
     {
         return [
             'type' => 'password_reset',
-            'title' => 'Password Reset Request',
-            'message' => 'A password reset request has been made for your account.',
+            'title' => 'translate.password_reset_request',
+            'message' => 'translate.password_reset_message',
             'email' => $this->email,
         ];
     }

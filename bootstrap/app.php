@@ -18,7 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            'dashboard' => \App\Http\Middleware\EnsureDashboardAccess::class,
+            'guest.dashboard' => \App\Http\Middleware\RedirectIfDashboardAuthenticated::class,
+            'doctor.approved' => \App\Http\Middleware\EnsureDoctorApproved::class,
         ]);
         // إضافة SetLocaleMiddleware لمجموعة web دون استبدال الـ middleware الافتراضي (Session، إلخ)
         $middleware->web(append: [

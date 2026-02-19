@@ -10,8 +10,6 @@ class Prescription extends Model
 {
     protected $table = 'prescriptions';
 
-    protected $primaryKey = 'prescription_id';
-
     public $timestamps = true;
 
     protected $fillable = [
@@ -33,7 +31,7 @@ class Prescription extends Model
      */
     public function examination(): BelongsTo
     {
-        return $this->belongsTo(MedicalExamination::class, 'examination_id', 'examination_id');
+        return $this->belongsTo(MedicalExamination::class, 'examination_id', 'id');
     }
 
     /**
@@ -41,7 +39,7 @@ class Prescription extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
     /**
@@ -49,7 +47,7 @@ class Prescription extends Model
      */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
     /**
@@ -57,6 +55,6 @@ class Prescription extends Model
      */
     public function details(): HasMany
     {
-        return $this->hasMany(PrescriptionDetail::class, 'prescription_id', 'prescription_id');
+        return $this->hasMany(PrescriptionDetail::class, 'prescription_id', 'id');
     }
 }

@@ -2,24 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\Gender;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\HasAttachments;
 
-class Patient extends Model
+class Patient extends Authenticatable
 {
+    use Notifiable, HasAttachments;
     protected $table = 'patients';
-
-    protected $primaryKey = 'patient_id';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'date_of_birth',
         'gender',
         'phone',
         'email',
+        'password',
         'address',
         'blood_type',
         'allergies',
@@ -28,8 +30,16 @@ class Patient extends Model
         'emergency_contact_phone',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected $casts = [
         'date_of_birth' => 'date',
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'gender' => Gender::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -39,7 +49,7 @@ class Patient extends Model
      */
     public function appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Appointment::class, 'patient_id', 'id');
     }
 
     /**
@@ -47,7 +57,7 @@ class Patient extends Model
      */
     public function medicalExaminations(): HasMany
     {
-        return $this->hasMany(MedicalExamination::class, 'patient_id', 'patient_id');
+        return $this->hasMany(MedicalExamination::class, 'patient_id', 'id');
     }
 
     /**
@@ -55,7 +65,7 @@ class Patient extends Model
      */
     public function prescriptions(): HasMany
     {
-        return $this->hasMany(Prescription::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Prescription::class, 'patient_id', 'id');
     }
 
     /**
@@ -63,7 +73,7 @@ class Patient extends Model
      */
     public function invoices(): HasMany
     {
-        return $this->hasMany(Invoice::class, 'patient_id', 'patient_id');
+        return $this->hasMany(Invoice::class, 'patient_id', 'id');
     }
 
     /**
@@ -71,6 +81,6 @@ class Patient extends Model
      */
     public function getFullNameAttribute(): string
     {
-        return "{$this->first_name} {$this->last_name}";
+        return $this->name ?? '';
     }
 }

@@ -12,23 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('prescription_details', function (Blueprint $table) {
-            $table->increments('detail_id');
-            $table->unsignedInteger('prescription_id');
-            $table->unsignedInteger('medication_id');
+            $table->id();
+            $table->foreignId('prescription_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('medication_id')->constrained()->cascadeOnDelete();
             $table->string('dosage', 100);
             $table->string('frequency', 100);
             $table->string('duration', 50);
             $table->text('instructions')->nullable();
             $table->timestamps();
 
-            $table->foreign('prescription_id')
-                ->references('prescription_id')
-                ->on('prescriptions')
-                ->cascadeOnDelete();
-            $table->foreign('medication_id')
-                ->references('medication_id')
-                ->on('medications')
-                ->cascadeOnDelete();
         });
     }
 

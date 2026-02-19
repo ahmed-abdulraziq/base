@@ -9,8 +9,6 @@ class Medication extends Model
 {
     protected $table = 'medications';
 
-    protected $primaryKey = 'medication_id';
-
     public $timestamps = true;
 
     protected $fillable = [

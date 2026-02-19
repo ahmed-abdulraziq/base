@@ -1,22 +1,32 @@
 <?php
 
+/**
+ * Dashboard routes: مشترك بين الأدمن والطبيب وأي أدوار أخرى (الدخول، الصفحة الرئيسية، الإشعارات، العيادة).
+ * Admin controllers: إدارة الأدمن، الإعدادات، الصلاحيات، الأدوار، المستخدمين.
+ */
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\SettingsController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Dashboard\AdminController;
-use App\Http\Controllers\Dashboard\RoleController;
-use App\Http\Controllers\Dashboard\PermissionController;
+use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Dashboard\AdminContactController;
 use App\Http\Controllers\Dashboard\SpecializationController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\MedicationController;
 use App\Http\Controllers\Dashboard\AppointmentController;
+use App\Http\Controllers\Dashboard\PrescriptionController;
+use App\Http\Controllers\Dashboard\MedicalExaminationController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PrescriptionOptionSettingController;
 
-// Guest routes (no auth required)
-Route::middleware('guest:admin')->group(function () {
+// Guest routes (لا أدمن ولا طبيب معتمد مسجّل)
+Route::middleware('guest.dashboard')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
     Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -25,10 +35,24 @@ Route::middleware('guest:admin')->group(function () {
     Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
 });
 
-// Authenticated routes
-Route::middleware('auth:admin')->group(function () {
+// Authenticated routes (admin أو طبيب معتمد)
+Route::middleware('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Notifications (مشترك)
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
+    Route::get('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::get('notifications/check', [NotificationController::class, 'check'])->name('notifications.check');
+
+    // Contact Messages
+    Route::prefix('contact-messages')->name('contact_messages.')->group(function () {
+        Route::get('/', [AdminContactController::class, 'index'])->name('index');
+        Route::get('{contactMessage}', [AdminContactController::class, 'show'])->name('show');
+        Route::delete('{contactMessage}', [AdminContactController::class, 'destroy'])->name('destroy');
+        Route::patch('{contactMessage}/mark-as-read', [AdminContactController::class, 'markAsRead'])->name('markAsRead');
+    });
 
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingsController::class, 'index'])->name('index');
@@ -40,6 +64,10 @@ Route::middleware('auth:admin')->group(function () {
 
         Route::get('permissions/data', [PermissionController::class, 'data'])->name('permissions.data');
         Route::resource('permissions', PermissionController::class)->except(['show']);
+
+        Route::get('prescription-options', [PrescriptionOptionSettingController::class, 'index'])->name('prescription-options.index');
+        Route::post('prescription-options', [PrescriptionOptionSettingController::class, 'store'])->name('prescription-options.store');
+        Route::delete('prescription-options/{prescriptionOptionSetting}', [PrescriptionOptionSettingController::class, 'destroy'])->name('prescription-options.destroy');
     });
 
     // Users (المستخدمون)
@@ -56,18 +84,27 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('specializations', SpecializationController::class)->except(['show']);
 
         Route::get('doctors/data', [DoctorController::class, 'data'])->name('doctors.data');
+        Route::post('doctors/{doctor}/approve', [DoctorController::class, 'approve'])->name('doctors.approve');
         Route::resource('doctors', DoctorController::class)->except(['show']);
 
         Route::get('employees/data', [EmployeeController::class, 'data'])->name('employees.data');
+        Route::post('employees/{employee}/approve', [EmployeeController::class, 'approve'])->name('employees.approve');
         Route::resource('employees', EmployeeController::class)->except(['show']);
 
         Route::get('patients/data', [PatientController::class, 'data'])->name('patients.data');
-        Route::resource('patients', PatientController::class)->except(['show']);
+        Route::resource('patients', PatientController::class);
 
         Route::get('medications/data', [MedicationController::class, 'data'])->name('medications.data');
         Route::resource('medications', MedicationController::class)->except(['show']);
 
         Route::get('appointments/data', [AppointmentController::class, 'data'])->name('appointments.data');
         Route::resource('appointments', AppointmentController::class)->except(['show']);
+
+        Route::get('prescriptions/data', [PrescriptionController::class, 'data'])->name('prescriptions.data');
+        Route::get('prescriptions/{prescription}/pdf', [PrescriptionController::class, 'pdf'])->name('prescriptions.pdf');
+        Route::resource('prescriptions', PrescriptionController::class)->except(['show']);
+
+        Route::get('examinations/data', [MedicalExaminationController::class, 'data'])->name('examinations.data');
+        Route::resource('examinations', MedicalExaminationController::class)->except(['show']);
     });
 });

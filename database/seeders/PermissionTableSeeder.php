@@ -57,7 +57,8 @@ class PermissionTableSeeder extends Seeder
         'view.patients',
         'view.medications',
         'view.appointments',
-        
+        'view.prescriptions',
+
         // System Permissions
         'manage.system',
         'view.system.logs',

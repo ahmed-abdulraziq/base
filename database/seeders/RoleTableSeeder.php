@@ -44,6 +44,7 @@ class RoleTableSeeder extends Seeder
             'view.patients',
             'view.medications',
             'view.appointments',
+            'view.prescriptions',
             'manage.system',
             'view.system.logs',
         ],
@@ -71,6 +72,7 @@ class RoleTableSeeder extends Seeder
             'view.patients',
             'view.medications',
             'view.appointments',
+            'view.prescriptions',
         ],
         'user' => [
             // Basic user permissions

@@ -9,8 +9,6 @@ class InvoiceDetail extends Model
 {
     protected $table = 'invoice_details';
 
-    protected $primaryKey = 'detail_id';
-
     public $timestamps = true;
 
     protected $fillable = [

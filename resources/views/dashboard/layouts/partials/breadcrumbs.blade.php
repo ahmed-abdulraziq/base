@@ -21,5 +21,5 @@
     </div>
 </div>
 <div class="col-12">
-    @include('dashboard.layouts.notifications.status')
+    @include('partials.toast-alerts')
 </div>

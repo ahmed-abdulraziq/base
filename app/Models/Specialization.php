@@ -9,8 +9,6 @@ class Specialization extends Model
 {
     protected $table = 'specializations';
 
-    protected $primaryKey = 'specialization_id';
-
     public $timestamps = true;
 
     protected $fillable = [

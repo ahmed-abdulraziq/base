@@ -16,10 +16,9 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label">{{ __('translate.status') }} <span class="text-danger">*</span></label>
                 <select name="status" class="form-select" required>
-                    <option value="محجوز" selected>محجوز</option>
-                    <option value="مؤكد">مؤكد</option>
-                    <option value="منتهي">منتهي</option>
-                    <option value="ملغي">ملغي</option>
+                    @foreach(\App\Enums\AppointmentStatus::cases() as $case)
+                        <option value="{{ $case->value }}" {{ $case->value === \App\Enums\AppointmentStatus::default() ? 'selected' : '' }}>{{ $case->label() }}</option>
+                    @endforeach
                 </select>
             </div>
             <x-forms.select name="created_by" :label="__('translate.created_by')" :options="$employees" col="col-md-6" />

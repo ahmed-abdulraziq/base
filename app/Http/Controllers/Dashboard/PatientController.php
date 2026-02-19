@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\StorePatientRequest;
 use App\Http\Requests\Dashboard\UpdatePatientRequest;
+use App\DataTables\Dashboard\PatientDataTable;
 use App\Models\Patient;
+use App\Services\Dashboard\PatientService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Yajra\DataTables\Facades\DataTables;
 
 class PatientController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(
+        protected PatientService $patientService
+    ) {
         $this->middleware('can:view.patients')->only(['index', 'data', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
@@ -26,30 +28,8 @@ class PatientController extends Controller
 
     public function data(Request $request)
     {
-        $query = Patient::query();
-
-        if ($request->filled('filter_search')) {
-            $term = $request->filter_search;
-            $query->where(function ($q) use ($term) {
-                $q->where('first_name', 'like', "%{$term}%")
-                    ->orWhere('last_name', 'like', "%{$term}%")
-                    ->orWhere('email', 'like', "%{$term}%")
-                    ->orWhere('phone', 'like', "%{$term}%");
-            });
-        }
-        if ($request->filled('filter_date_from')) {
-            $query->whereDate('created_at', '>=', $request->filter_date_from);
-        }
-        if ($request->filled('filter_date_to')) {
-            $query->whereDate('created_at', '<=', $request->filter_date_to);
-        }
-
-        return DataTables::eloquent($query)
-            ->editColumn('created_at', fn ($p) => $p->created_at?->format('d/m/Y H:i'))
-            ->addColumn('full_name', fn ($p) => $p->full_name)
-            ->addColumn('actions', fn ($p) => view('dashboard.clinic.patients.datatable.actions', ['item' => $p])->render())
-            ->rawColumns(['actions'])
-            ->make(true);
+        $query = $this->patientService->getFilteredQuery($request);
+        return PatientDataTable::make($query, $request);
     }
 
     public function create(): View
@@ -59,9 +39,15 @@ class PatientController extends Controller
 
     public function store(StorePatientRequest $request): RedirectResponse
     {
-        Patient::create($request->validated());
+        $this->patientService->create($request->validated());
         return redirect()->route('dashboard.clinic.patients.index')
             ->with('success', __('translate.patient_added_successfully'));
+    }
+
+    public function show($id): View
+    {
+        $patient = Patient::with(['appointments.doctor', 'medicalExaminations.doctor', 'medicalExaminations.attachments', 'prescriptions.details.medication'])->findOrFail($id);
+        return view('dashboard.clinic.patients.show', compact('patient'));
     }
 
     public function edit(Patient $patient): View
@@ -71,14 +57,14 @@ class PatientController extends Controller
 
     public function update(UpdatePatientRequest $request, Patient $patient): RedirectResponse
     {
-        $patient->update($request->validated());
+        $this->patientService->update($patient, $request->validated());
         return redirect()->route('dashboard.clinic.patients.index')
             ->with('success', __('translate.patient_edited_successfully'));
     }
 
     public function destroy(Patient $patient): \Illuminate\Http\JsonResponse|RedirectResponse
     {
-        $patient->delete();
+        $this->patientService->delete($patient);
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json(['status' => true, 'message' => __('translate.patient_deleted_successfully')]);
         }

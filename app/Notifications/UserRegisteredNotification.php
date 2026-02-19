@@ -44,8 +44,8 @@ class UserRegisteredNotification extends BaseNotification
     {
         return [
             'type' => 'user_registered',
-            'title' => 'Welcome!',
-            'message' => 'Your account has been successfully created.',
+            'title' => 'translate.welcome_exclamation',
+            'message' => 'translate.account_created_successfully',
             'user_id' => $this->user->id,
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,

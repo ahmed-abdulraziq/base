@@ -10,15 +10,15 @@
         <x-forms.form route="dashboard.clinic.patients.store" method="POST" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.create_patient')">
 
             <div class="hr-text text-primary fs-4">{{ __('translate.basic_information') }}</div>
-            <x-forms.input name="first_name" :label="__('translate.first_name')" required col="col-md-6" />
-            <x-forms.input name="last_name" :label="__('translate.last_name')" required col="col-md-6" />
+            <x-forms.input name="name" :label="__('translate.name')" required col="col-md-12" />
             <x-forms.input type="date" name="date_of_birth" :label="__('translate.date_of_birth')" required col="col-md-6" />
             <div class="col-md-6 mb-3">
                 <label class="form-label">{{ __('translate.gender') }} <span class="text-danger">*</span></label>
                 <select name="gender" class="form-select" required>
                     <option value="">{{ __('translate.select_option') }}</option>
-                    <option value="ذكر">ذكر</option>
-                    <option value="أنثى">أنثى</option>
+                    @foreach(\App\Enums\Gender::cases() as $case)
+                        <option value="{{ $case->value }}" {{ old('gender') === $case->value ? 'selected' : '' }}>{{ $case->label() }}</option>
+                    @endforeach
                 </select>
             </div>
             <x-forms.input name="phone" :label="__('translate.phone')" required col="col-md-6" />

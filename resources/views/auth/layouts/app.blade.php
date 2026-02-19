@@ -1,10 +1,12 @@
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}"
+    data-bs-theme="light" data-bs-theme-base="neutral">
 <head>
+    {{-- نفس ثيم الداشبورد: من localStorage أو ?theme= --}}
+    <script src="{{ asset('assets/dist/js/tabler-theme.min.js') }}"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>{{ __('translate.eindak') }} - {{ __('translate.login') }}</title>
+    <title>@yield('title', __('translate.login'))</title>
     @if (app()->getLocale() == 'ar')
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="{{ asset('assets/dist/css/tabler.rtl.min.css') }}" rel="stylesheet" />
@@ -15,6 +17,7 @@
         <link href="{{ asset('assets/dist/css/tabler-payments.rtl.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/dist/css/tabler-vendors.rtl.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/dist/css/tabler-marketing.rtl.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('assets/dist/css/tabler-themes.rtl.css') }}" rel="stylesheet" />
         <!-- END PLUGINS STYLES -->
         <!-- BEGIN DEMO STYLES -->
         <link href="{{ asset('assets/preview/css/demo.rtl.min.css') }}" rel="stylesheet" />
@@ -28,6 +31,7 @@
         <link href="{{ asset('assets/dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('assets/dist/css/tabler-marketing.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('assets/dist/css/tabler-themes.css') }}" rel="stylesheet" />
         <!-- END PLUGINS STYLES -->
         <!-- BEGIN DEMO STYLES -->
         <link href="{{ asset('assets/preview/css/demo.min.css') }}" rel="stylesheet" />
@@ -76,12 +80,12 @@
 </head>
 
 <body>
-    <!-- BEGIN DEMO THEME SCRIPT -->
-    <script src="{{ asset('assets/preview/js/demo-theme.min.js') }}"></script>
-    <!-- END DEMO THEME SCRIPT -->
-    {{-- زر تبديل اللغة --}}
+    {{-- تبديل الثيم + اللغة (نفس الداشبورد: ?theme= يحفظ في localStorage) --}}
     <div class="position-fixed top-0 end-0 m-3" style="z-index: 1030;">
-        <div class="d-flex gap-2 small">
+        <div class="d-flex align-items-center gap-2 small">
+            <a href="{{ request()->fullUrlWithQuery(['theme' => 'dark']) }}" class="text-decoration-none text-muted hide-theme-dark" title="Dark mode" aria-label="Dark">🌙</a>
+            <a href="{{ request()->fullUrlWithQuery(['theme' => 'light']) }}" class="text-decoration-none text-muted hide-theme-light" title="Light mode" aria-label="Light">☀️</a>
+            <span class="text-muted">|</span>
             @foreach (get_available_locales() as $localeCode => $properties)
                 <a href="{{ get_locale_url($localeCode) }}"
                    class="text-decoration-none fw-semibold
@@ -93,6 +97,12 @@
             @endforeach
         </div>
     </div>
+    <style>
+        .hide-theme-dark { display: inline !important; }
+        .hide-theme-light { display: none !important; }
+        [data-bs-theme=dark] .hide-theme-dark { display: none !important; }
+        [data-bs-theme=dark] .hide-theme-light { display: inline !important; }
+    </style>
     
     <div class="page page-center">
         @yield('content')

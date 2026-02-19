@@ -15,16 +15,16 @@ class UpdateDoctorRequest extends FormRequest
     {
         $doctor = $this->route('doctor');
         return [
-            'first_name' => ['required', 'string', 'max:50'],
-            'last_name' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'max:20'],
-            'email' => ['nullable', 'email', 'max:100', 'unique:doctors,email,' . $doctor->doctor_id . ',doctor_id'],
-            'specialization_id' => ['nullable', 'exists:specializations,specialization_id'],
-            'license_number' => ['required', 'string', 'max:50', 'unique:doctors,license_number,' . $doctor->doctor_id . ',doctor_id'],
+            'email' => ['nullable', 'email', 'max:100', 'unique:doctors,email,' . $doctor->id . ',id'],
+            'specialization_id' => ['nullable', 'exists:specializations,id'],
+            'license_number' => ['required', 'string', 'max:50', 'unique:doctors,license_number,' . $doctor->id . ',id'],
             'years_of_experience' => ['nullable', 'integer', 'min:0'],
             'consultation_fee' => ['nullable', 'numeric', 'min:0'],
             'hire_date' => ['required', 'date'],
             'is_active' => ['boolean'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ];
     }
 

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Traits\HasAttachments;
 
 class MedicalExamination extends Model
 {
+    use HasAttachments;
+    
     protected $table = 'medical_examinations';
-
-    protected $primaryKey = 'examination_id';
 
     public $timestamps = true;
 
@@ -35,7 +36,7 @@ class MedicalExamination extends Model
      */
     public function appointment(): BelongsTo
     {
-        return $this->belongsTo(Appointment::class, 'appointment_id', 'appointment_id');
+        return $this->belongsTo(Appointment::class, 'appointment_id', 'id');
     }
 
     /**
@@ -43,7 +44,7 @@ class MedicalExamination extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
     /**
@@ -51,7 +52,7 @@ class MedicalExamination extends Model
      */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
     /**
@@ -59,6 +60,6 @@ class MedicalExamination extends Model
      */
     public function prescription(): HasOne
     {
-        return $this->hasOne(Prescription::class, 'examination_id', 'examination_id');
+        return $this->hasOne(Prescription::class, 'examination_id', 'id');
     }
 }

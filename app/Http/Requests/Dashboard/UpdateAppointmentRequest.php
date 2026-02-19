@@ -21,14 +21,14 @@ class UpdateAppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id' => ['required', 'exists:patients,patient_id'],
-            'doctor_id' => ['required', 'exists:doctors,doctor_id'],
+            'patient_id' => ['required', 'exists:patients,id'],
+            'doctor_id' => ['required', 'exists:doctors,id'],
             'appointment_date' => ['required', 'date'],
             'appointment_time' => ['required'],
-            'status' => ['required', 'in:محجوز,مؤكد,منتهي,ملغي'],
+            'status' => ['required', 'in:booked,confirmed,completed,cancelled'],
             'reason' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'created_by' => ['nullable', 'exists:employees,employee_id'],
+            'created_by' => ['nullable', 'exists:employees,id'],
         ];
     }
 }

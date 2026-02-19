@@ -12,11 +12,15 @@ class ClinicDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            PrescriptionOptionSettingSeeder::class,
             SpecializationSeeder::class,
             DoctorSeeder::class,
             EmployeeSeeder::class,
             PatientSeeder::class,
             MedicationSeeder::class,
+            AppointmentSeeder::class,
+            MedicalExaminationSeeder::class,
+            PrescriptionSeeder::class,
         ]);
     }
 }

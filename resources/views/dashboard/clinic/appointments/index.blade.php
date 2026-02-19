@@ -1,6 +1,6 @@
 @php
     $columns = [
-        ['data' => 'appointment_id', 'name' => 'appointment_id', 'title' => '#', 'width' => '5%'],
+        ['data' => 'id', 'name' => 'id', 'title' => '#', 'width' => '5%'],
         ['data' => 'appointment_date', 'name' => 'appointment_date', 'title' => __('translate.appointment_date')],
         ['data' => 'patient_name', 'name' => 'patient_id', 'title' => __('translate.patient')],
         ['data' => 'doctor_name', 'name' => 'doctor_id', 'title' => __('translate.doctor')],
@@ -42,10 +42,9 @@
                             <label for="filter-form-appointments-table-status" class="form-label text-muted mb-0">@lang('translate.status')</label>
                             <select class="form-select" id="filter-form-appointments-table-status" name="filter_status" style="min-width: 120px;">
                                 <option value="">@lang('translate.all')</option>
-                                <option value="محجوز">محجوز</option>
-                                <option value="مؤكد">مؤكد</option>
-                                <option value="منتهي">منتهي</option>
-                                <option value="ملغي">ملغي</option>
+                                @foreach(\App\Enums\AppointmentStatus::cases() as $case)
+                                    <option value="{{ $case->value }}">{{ $case->label() }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </x-slot:extra>

@@ -7,17 +7,17 @@
 
 @section('content')
     <div class="col-md-12">
-        <x-forms.form route="dashboard.clinic.patients.update" :model="$patient->patient_id" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_patient')">
+        <x-forms.form route="dashboard.clinic.patients.update" :model="$patient->id" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_patient')">
 
             <div class="hr-text text-primary fs-4">{{ __('translate.basic_information') }}</div>
-            <x-forms.input name="first_name" :label="__('translate.first_name')" required :value="$patient->first_name" col="col-md-6" />
-            <x-forms.input name="last_name" :label="__('translate.last_name')" required :value="$patient->last_name" col="col-md-6" />
+            <x-forms.input name="name" :label="__('translate.name')" required :value="$patient->name" col="col-md-12" />
             <x-forms.input type="date" name="date_of_birth" :label="__('translate.date_of_birth')" required :value="$patient->date_of_birth?->format('Y-m-d')" col="col-md-6" />
             <div class="col-md-6 mb-3">
                 <label class="form-label">{{ __('translate.gender') }} <span class="text-danger">*</span></label>
                 <select name="gender" class="form-select" required>
-                    <option value="ذكر" {{ $patient->gender == 'ذكر' ? 'selected' : '' }}>ذكر</option>
-                    <option value="أنثى" {{ $patient->gender == 'أنثى' ? 'selected' : '' }}>أنثى</option>
+                    @foreach(\App\Enums\Gender::cases() as $case)
+                        <option value="{{ $case->value }}" {{ $patient->gender === $case ? 'selected' : '' }}>{{ $case->label() }}</option>
+                    @endforeach
                 </select>
             </div>
             <x-forms.input name="phone" :label="__('translate.phone')" required :value="$patient->phone" col="col-md-6" />

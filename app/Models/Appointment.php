@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AppointmentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Appointment extends Model
 {
     protected $table = 'appointments';
-
-    protected $primaryKey = 'appointment_id';
 
     public $timestamps = true;
 
@@ -27,6 +26,7 @@ class Appointment extends Model
 
     protected $casts = [
         'appointment_date' => 'date',
+        'status' => AppointmentStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -36,7 +36,7 @@ class Appointment extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
     /**
@@ -44,7 +44,7 @@ class Appointment extends Model
      */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
     /**
@@ -52,7 +52,7 @@ class Appointment extends Model
      */
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(Employee::class, 'created_by', 'employee_id');
+        return $this->belongsTo(Employee::class, 'created_by', 'id');
     }
 
     /**
@@ -60,7 +60,7 @@ class Appointment extends Model
      */
     public function medicalExamination(): HasOne
     {
-        return $this->hasOne(MedicalExamination::class, 'appointment_id', 'appointment_id');
+        return $this->hasOne(MedicalExamination::class, 'appointment_id', 'id');
     }
 
     /**
@@ -68,6 +68,6 @@ class Appointment extends Model
      */
     public function invoice()
     {
-        return $this->hasOne(Invoice::class, 'appointment_id', 'appointment_id');
+        return $this->hasOne(Invoice::class, 'appointment_id', 'id');
     }
 }

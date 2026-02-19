@@ -2,45 +2,61 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Doctor extends Model
+class Doctor extends Authenticatable
 {
+    use Notifiable;
     protected $table = 'doctors';
-
-    protected $primaryKey = 'doctor_id';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'phone',
         'email',
+        'password',
         'specialization_id',
         'license_number',
         'years_of_experience',
         'consultation_fee',
         'hire_date',
         'is_active',
+        'approved_at',
     ];
 
-    protected $casts = [
-        'hire_date' => 'date',
-        'is_active' => 'boolean',
-        'consultation_fee' => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'hire_date' => 'date',
+            'is_active' => 'boolean',
+            'consultation_fee' => 'decimal:2',
+            'approved_at' => 'datetime',
+            'password' => 'hashed',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approved_at !== null;
+    }
 
     /**
      * Get the specialization of the doctor.
      */
     public function specialization(): BelongsTo
     {
-        return $this->belongsTo(Specialization::class, 'specialization_id', 'specialization_id');
+        return $this->belongsTo(Specialization::class, 'specialization_id', 'id');
     }
 
     /**
@@ -48,7 +64,7 @@ class Doctor extends Model
      */
     public function appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'doctor_id', 'doctor_id');
+        return $this->hasMany(Appointment::class, 'doctor_id', 'id');
     }
 
     /**
@@ -56,7 +72,7 @@ class Doctor extends Model
      */
     public function medicalExaminations(): HasMany
     {
-        return $this->hasMany(MedicalExamination::class, 'doctor_id', 'doctor_id');
+        return $this->hasMany(MedicalExamination::class, 'doctor_id', 'id');
     }
 
     /**
@@ -64,7 +80,15 @@ class Doctor extends Model
      */
     public function prescriptions(): HasMany
     {
-        return $this->hasMany(Prescription::class, 'doctor_id', 'doctor_id');
+        return $this->hasMany(Prescription::class, 'doctor_id', 'id');
+    }
+
+    /**
+     * الموظفون الذين أضافهم الطبيب (بانتظار موافقة الأدمن أو معتمدون).
+     */
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class, 'doctor_id', 'id');
     }
 
     /**
@@ -72,7 +96,7 @@ class Doctor extends Model
      */
     public function schedule(): HasMany
     {
-        return $this->hasMany(DoctorSchedule::class, 'doctor_id', 'doctor_id');
+        return $this->hasMany(DoctorSchedule::class, 'doctor_id', 'id');
     }
 
     /**
@@ -84,10 +108,18 @@ class Doctor extends Model
     }
 
     /**
-     * Get full name.
+     * Get full name (للتوافق مع الكود الذي يستخدم full_name).
      */
     public function getFullNameAttribute(): string
     {
-        return "{$this->first_name} {$this->last_name}";
+        return $this->name ?? '';
+    }
+
+    /**
+     * للتوافق مع لوحة التحكم (عرض الدور).
+     */
+    public function getRoleAttribute(): string
+    {
+        return 'doctor';
     }
 }

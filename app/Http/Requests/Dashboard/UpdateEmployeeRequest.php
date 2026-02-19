@@ -15,13 +15,13 @@ class UpdateEmployeeRequest extends FormRequest
     {
         $employee = $this->route('employee');
         return [
-            'first_name' => ['required', 'string', 'max:50'],
-            'last_name' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'max:20'],
-            'email' => ['nullable', 'email', 'max:100', 'unique:employees,email,' . $employee->employee_id . ',employee_id'],
+            'email' => ['nullable', 'email', 'max:100', 'unique:employees,email,' . $employee->id . ',id'],
             'job_title' => ['required', 'string', 'max:100'],
             'salary' => ['nullable', 'numeric', 'min:0'],
             'hire_date' => ['required', 'date'],
+            'password' => ['nullable', 'string', 'min:8'],
             'is_active' => ['boolean'],
         ];
     }

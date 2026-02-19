@@ -10,12 +10,13 @@
         <x-forms.form route="dashboard.clinic.doctors.store" method="POST" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.create_doctor')">
 
             <div class="hr-text text-primary fs-4">{{ __('translate.basic_information') }}</div>
-            <x-forms.input name="first_name" :label="__('translate.first_name')" required col="col-md-6" />
-            <x-forms.input name="last_name" :label="__('translate.last_name')" required col="col-md-6" />
+            <x-forms.input name="name" :label="__('translate.name')" required col="col-md-12" />
             <x-forms.input name="phone" :label="__('translate.phone')" required col="col-md-6" />
             <x-forms.input type="email" name="email" :label="__('translate.email')" col="col-md-6" />
             <x-forms.select name="specialization_id" :label="__('translate.specialization')" :options="$specializations" col="col-md-6" />
             <x-forms.input name="license_number" :label="__('translate.license_number')" required col="col-md-6" />
+            <x-forms.input type="password" name="password" :label="__('translate.password')" required col="col-md-6" />
+            <x-forms.input type="password" name="password_confirmation" :label="__('translate.password_confirmation')" required col="col-md-6" />
 
             <div class="hr-text text-primary fs-4">{{ __('translate.professional_info') }}</div>
             <x-forms.input type="number" name="years_of_experience" :label="__('translate.years_of_experience')" col="col-md-6" />

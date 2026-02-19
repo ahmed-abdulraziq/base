@@ -1,10 +1,11 @@
 @php
     $columns = [
-        ['data' => 'employee_id', 'name' => 'employee_id', 'title' => '#', 'width' => '5%'],
-        ['data' => 'full_name', 'name' => 'first_name', 'title' => __('translate.employee_name')],
+        ['data' => 'id', 'name' => 'id', 'title' => '#', 'width' => '5%'],
+        ['data' => 'full_name', 'name' => 'name', 'title' => __('translate.employee_name')],
         ['data' => 'job_title', 'name' => 'job_title', 'title' => __('translate.job_title')],
         ['data' => 'phone', 'name' => 'phone', 'title' => __('translate.phone')],
-        ['data' => 'salary', 'name' => 'salary', 'title' => __('translate.salary')],
+        ['data' => 'doctor_name', 'name' => 'doctor_id', 'title' => __('translate.added_by_doctor')],
+        ['data' => 'approval_status', 'name' => 'approved_at', 'title' => __('translate.status')],
         ['data' => 'created_at', 'name' => 'created_at', 'title' => __('translate.created_at')],
     ];
 @endphp

@@ -1,6 +1,6 @@
 @php
     $columns = [
-        ['data' => 'medication_id', 'name' => 'medication_id', 'title' => '#', 'width' => '5%'],
+        ['data' => 'id', 'name' => 'id', 'title' => '#', 'width' => '5%'],
         ['data' => 'medication_name', 'name' => 'medication_name', 'title' => __('translate.medication_name')],
         ['data' => 'generic_name', 'name' => 'generic_name', 'title' => __('translate.generic_name')],
         ['data' => 'type', 'name' => 'type', 'title' => __('translate.medication_type')],

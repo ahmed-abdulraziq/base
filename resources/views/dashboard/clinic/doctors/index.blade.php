@@ -1,7 +1,7 @@
 @php
     $columns = [
-        ['data' => 'doctor_id', 'name' => 'doctor_id', 'title' => '#', 'width' => '5%'],
-        ['data' => 'full_name', 'name' => 'first_name', 'title' => __('translate.doctor_name')],
+        ['data' => 'id', 'name' => 'id', 'title' => '#', 'width' => '5%'],
+        ['data' => 'full_name', 'name' => 'name', 'title' => __('translate.doctor_name')],
         ['data' => 'specialization_name', 'name' => 'specialization_id', 'title' => __('translate.specialization')],
         ['data' => 'phone', 'name' => 'phone', 'title' => __('translate.phone')],
         ['data' => 'consultation_fee', 'name' => 'consultation_fee', 'title' => __('translate.consultation_fee')],

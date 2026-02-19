@@ -49,8 +49,12 @@ class OrderStatusUpdatedNotification extends BaseNotification
     {
         return [
             'type' => 'order_status_updated',
-            'title' => 'Order Status Updated',
-            'message' => 'Your order status has been changed from ' . ucfirst($this->oldStatus) . ' to ' . ucfirst($this->newStatus) . '.',
+            'title' => 'translate.order_status_updated',
+            'message' => 'translate.order_status_updated_message',
+            'params' => [
+                'old_status' => ucfirst($this->oldStatus),
+                'new_status' => ucfirst($this->newStatus),
+            ],
             'order_id' => $this->orderId,
             'order_number' => $this->orderNumber ?? '#' . $this->orderId,
             'old_status' => $this->oldStatus,

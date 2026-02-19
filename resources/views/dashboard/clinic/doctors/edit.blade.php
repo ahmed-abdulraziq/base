@@ -7,15 +7,30 @@
 
 @section('content')
     <div class="col-md-12">
-        <x-forms.form route="dashboard.clinic.doctors.update" :model="$doctor->doctor_id" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_doctor')">
+        @if (!$doctor->approved_at)
+            <div class="alert alert-warning mb-3">
+                @lang('translate.doctor_pending_approval')
+                <form action="{{ route('dashboard.clinic.doctors.approve', $doctor->id) }}" method="POST" class="d-inline ms-2">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-success">@lang('translate.approve')</button>
+                </form>
+            </div>
+        @endif
+        <x-forms.form route="dashboard.clinic.doctors.update" :model="$doctor->id" method="PUT" submitText="{{ __('translate.save') }}" formClass="form-horizontal" :title="__('translate.edit_doctor')">
 
             <div class="hr-text text-primary fs-4">{{ __('translate.basic_information') }}</div>
-            <x-forms.input name="first_name" :label="__('translate.first_name')" required :value="$doctor->first_name" col="col-md-6" />
-            <x-forms.input name="last_name" :label="__('translate.last_name')" required :value="$doctor->last_name" col="col-md-6" />
+            <x-forms.input name="name" :label="__('translate.name')" required :value="$doctor->name" col="col-md-12" />
             <x-forms.input name="phone" :label="__('translate.phone')" required :value="$doctor->phone" col="col-md-6" />
             <x-forms.input type="email" name="email" :label="__('translate.email')" :value="$doctor->email" col="col-md-6" />
             <x-forms.select name="specialization_id" :label="__('translate.specialization')" :options="$specializations" :selected="$doctor->specialization_id" col="col-md-6" />
             <x-forms.input name="license_number" :label="__('translate.license_number')" required :value="$doctor->license_number" col="col-md-6" />
+            <div class="col-md-6">
+                <x-forms.input type="password" name="password" :label="__('translate.password')" col="col-md-12" />
+                <small class="form-hint text-muted">{{ __('translate.leave_blank_to_keep') }}</small>
+            </div>
+            <div class="col-md-6">
+                <x-forms.input type="password" name="password_confirmation" :label="__('translate.password_confirmation')" col="col-md-12" />
+            </div>
 
             <div class="hr-text text-primary fs-4">{{ __('translate.professional_info') }}</div>
             <x-forms.input type="number" name="years_of_experience" :label="__('translate.years_of_experience')" :value="$doctor->years_of_experience" col="col-md-6" />

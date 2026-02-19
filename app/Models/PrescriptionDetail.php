@@ -9,8 +9,6 @@ class PrescriptionDetail extends Model
 {
     protected $table = 'prescription_details';
 
-    protected $primaryKey = 'detail_id';
-
     public $timestamps = true;
 
     protected $fillable = [
@@ -27,7 +25,7 @@ class PrescriptionDetail extends Model
      */
     public function prescription(): BelongsTo
     {
-        return $this->belongsTo(Prescription::class, 'prescription_id', 'prescription_id');
+        return $this->belongsTo(Prescription::class, 'prescription_id', 'id');
     }
 
     /**
@@ -35,6 +33,6 @@ class PrescriptionDetail extends Model
      */
     public function medication(): BelongsTo
     {
-        return $this->belongsTo(Medication::class, 'medication_id', 'medication_id');
+        return $this->belongsTo(Medication::class, 'medication_id', 'id');
     }
 }

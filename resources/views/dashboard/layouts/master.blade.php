@@ -74,7 +74,7 @@
             /* font-family: "Alexandria", sans-serif !important; */
         }
 
-        main {
+        .page {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -110,11 +110,11 @@
     <!-- BEGIN GLOBAL THEME SCRIPT -->
     <script src="{{ asset('assets/dist/js/tabler-theme.min.js') }}"></script>
     <!-- END GLOBAL THEME SCRIPT -->
-    <main>
-        @include('dashboard.layouts.partials.header')
-
-
+    <div class="page">
+        @include('dashboard.layouts.partials.sidebar')
         <div class="page-wrapper">
+            @include('dashboard.layouts.partials.header')
+
             <!-- BEGIN PAGE HEADER -->
             <div class="page-header d-print-none">
                 <div class="container-xl fs-3">
@@ -126,7 +126,7 @@
             <!-- BEGIN STATUS BARS -->
             <div class="container-xl">
                 <div class="col-12">
-                    @include('dashboard.layouts.notifications.status')
+                    @include('partials.toast-alerts')
                 </div>
             </div>
             <!-- END STATUS BARS -->
@@ -143,8 +143,7 @@
             @include('dashboard.layouts.partials.footer')
             <!--  END FOOTER  -->
         </div>
-
-    </main>
+    </div>
 
 
     @include('dashboard.layouts.components.theme-builder')
